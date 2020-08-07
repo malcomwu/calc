@@ -1,4 +1,4 @@
-const repeat = require('./helpers')
+const { repeat } = require('./helpers')
 
 class Lines {
   constructor(str) {

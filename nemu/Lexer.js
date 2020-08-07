@@ -1,6 +1,15 @@
 const makeLexerClass = require('./utils/makeLexerClass')
 
+const ident = '[a-zA-Z][a-zA-Z_\\-\\$\\d]*'
+const pm = '[\\+\\-]'
+const integer = `${pm}?[1-9]\\d*`
+const decimal = `${integer}(\\.\\d*)?`
+const number = `${decimal}([eE]${integer})?`
+
+// console.log(number)
+
 const Lexer = makeLexerClass({
+  '=': '=',
   '(': '\\(',
   ')': '\\)',
   '[': '\\[',
@@ -8,16 +17,24 @@ const Lexer = makeLexerClass({
   '{': '\\{',
   '}': '\\}',
   '.': '\\.',
+  ',': ',',
+  ';': ';',
   "'": "'",
   true: 'true',
   false: 'false',
-  yes : 'yes',
-  no : 'no',
+  yes: 'yes',
+  no: 'no',
+  addop: pm,
+  mulop: '[\\*\\/]',
+  powop: '\\^',
+  ident,
+  number,
   'single-quoat-esc': "\'",
-  addop : /[\+\-]/,
-  mulop : /[\*\/]/,
-  powop : '^',
-  ident : /[a-zA-Z][a-zA-Z_\-\$]*/      // $ is reserved for $
+
+  // Gramma predicate.
+  assignment: `${ident} *=`,
+  expression: `(${ident})|\\d|\\(`,
+  function: `${ident} *\\(`
 })
 
 module.exports = Lexer
