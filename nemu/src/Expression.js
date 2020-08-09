@@ -23,12 +23,19 @@ module.exports = class Expression {
   }
 
   parseExpression(lexer) {
-    let result = this.parseTerm(lexer)
+    let result = this.parseTerm(lexer)   // typed
     while (lexer.is('addop')) {
       let sign
       lexer.token('addop', lexeme => { sign = lexeme === '+' ? 1 : -1 })
       lexer.skipWhite()
       result += sign * this.parseTerm(lexer)
+
+     // result = result//
+     // result = pos ? Num.add(result, this.parseTerm(lexer)) :
+     //                Num.sub(result, this.parseTerm(lexer))
+     // how about Vector \pm Num|Vector // Vector is not Num..
+     // Todo/
+
       lexer.skipWhite()
     }
     lexer.skipWhite()

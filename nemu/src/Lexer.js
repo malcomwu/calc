@@ -4,9 +4,9 @@ const ident = '[a-zA-Z][a-zA-Z_\\-\\$\\d]*'
 const pm = '[\\+\\-]'
 const integer = `${pm}?[1-9]\\d*`
 const decimal = `${integer}(\\.\\d*)?`
-const number = `${decimal}([eE]${integer})?`
+const real = `${decimal}([eE]${integer})?`
 
-// console.log(number)
+// console.log(real)
 
 const Lexer = makeLexerClass({
   '=': '=',
@@ -16,6 +16,7 @@ const Lexer = makeLexerClass({
   ']': '\\]',
   '{': '\\{',
   '}': '\\}',
+  '/': '\\/',
   '.': '\\.',
   ',': ',',
   ';': ';',
@@ -24,11 +25,15 @@ const Lexer = makeLexerClass({
   false: 'false',
   yes: 'yes',
   no: 'no',
+  pm,
   addop: pm,
   mulop: '[\\*\\/]',
   powop: '\\^',
   ident,
-  number,
+  digits: '\\d+'
+  integer,
+  decimal,
+  real,
   'single-quoat-esc': "\'",
 
   // Gramma predicate.

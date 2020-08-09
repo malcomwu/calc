@@ -18,19 +18,43 @@ module.exports = class Calc {
     return this.value
   }
 
-  log(src) { console.log(this.run(src)) }
-
   ans(src) {
+    console.log('1> calc ' + src)
     const result = this.run(src)
     const str = this.currSymbol ? `${this.currSymbol} = ${result}` : `ans = ${result}`
-    console.log(str)
+    console.log(str, '\n')
+  }
+
+  session(src) {
+    console.log('1> calc\nEnter the calculation session.')
+    console.log(`Version A (same as in the command line):
+> x = 1 + 2
+x = 3
+> y = 3 + 4
+y = 7
+> z = a * b
+z = 21
+exit
+`)
+    console.log(`Version B (Concise)
+x = 1 + 2 => 3
+y = 3 + 4 => 7
+z = a * b => 21
+sin(0) = 0`)
+    console.log('exit\nExit the calculation session.\n')
   }
 
   get env() {
+    console.log('1> calc env')
     Object.keys(this.symbolTable).forEach(ident => {
       console.log(`${ident} = ${this.symbolTable[ident]}`)
     })
-    console.log(`ans = ${this.currAns}`)
+    console.log(`ans = ${this.currAns}`, '\n')
+
+    // Todo:
+    // calc env clear
+    // calc env clear a
+    // calc env clear a, b, x
   }
 
   parse(lexer) {
